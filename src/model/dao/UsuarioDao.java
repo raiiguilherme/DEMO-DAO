@@ -10,7 +10,7 @@ public interface UsuarioDao {
 	//metodos a serem implementados pela UsuarioDaoJDBC
 	void insert(Usuario obj);
 	void update(Usuario obj);
-	void deleteById(Usuario obj);
+	void deleteById(Integer id);
 	Usuario findById(Integer id);
 	List<Usuario> findAll();
 }

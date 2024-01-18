@@ -3,6 +3,7 @@ package aplication;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 import model.dao.DaoFactory;
 import model.dao.UsuarioDao;
@@ -11,6 +12,7 @@ import model.entities.Usuario;
 public class Program {
 
 	public static void main(String[] args) throws SQLException {
+		Scanner sc = new Scanner(System.in);
 		
 		//instanciando a interface UsuarioDao chamando o metodo create usuario da classe DaoFactory, 
 		//este que por sua vez instancia construtor de UsuarioDaoJDBC
@@ -52,7 +54,19 @@ public class Program {
 		
 		
 		
-		
+		//excluindo e mostrando nova lista sem o usuario excluido
+		 System.out.println("entre com id para excluir:");
+		 int id = sc.nextInt();
+		 usuariodao.deleteById(id);
+		 System.out.println("Usuario excluido com sucesso");
+		 System.out.println("Nova lista:");
+		 System.out.println("\n");
+		 List<Usuario> lisExc = usuariodao.findAll(); 
+			for (Usuario usuario2 : lisExc) {
+				System.out.println(usuario2);
+			}
+		 
+		 
 		
 
 	}

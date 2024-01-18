@@ -25,15 +25,20 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 	public void insert(Usuario obj) {
 		PreparedStatement ps = null;
 		try {
+			//query
 			ps = conn.prepareStatement("INSERT INTO usuario (nome, idade, email, senha) VALUES (?, ?, ?, ?)");
-			
+			//troca as interrogações pelos atributos do objeto que vem por parametro 
 			ps.setString(1, obj.getName());
 			ps.setInt(2, obj.getIdade());
 			ps.setString(3, obj.getEmail());
 			ps.setString(4, obj.getSenha());
+			//executa a query
 			ps.executeUpdate();
 		}catch (SQLException e) {
 			throw new DBException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(ps);
 		}
 		
 		
@@ -51,7 +56,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement("UPDATE usuario SET nome=?, idade=?, email=?, senha=? WHERE id_usuario=?");
-			
+			//troca as interrogações pelos atributos que vem pelo objeto do parametro
 			ps.setString(1, obj.getName());
 			ps.setInt(2, obj.getIdade());
 			ps.setString(3, obj.getEmail());
@@ -64,13 +69,41 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 		}catch (SQLException e) {
 			throw new DBException(e.getMessage());
 		}
+		finally {
+			DB.closeStatement(ps);
+		}
 		
 		
 	}
 
 	@Override
-	public void deleteById(Usuario obj) {
-		// TODO Auto-generated method stub
+	public void deleteById(Integer id) {
+
+		PreparedStatement ps = null;
+		try {
+			//query
+			ps = conn.prepareStatement("DELETE FROM usuario WHERE id_usuario=?");
+			//troca a interrogação pelo id que vem por parametro
+			ps.setInt(1, id);
+			
+		//executa a query
+		ps.executeUpdate();
+			
+			
+		}
+		catch (SQLException e) {
+			throw new DBException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(ps);
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 
@@ -163,5 +196,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 					DB.closeResultSet(rs);
 				}
 	}
+
+
 
 }
