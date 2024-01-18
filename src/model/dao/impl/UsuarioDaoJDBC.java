@@ -48,7 +48,23 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 
 	@Override
 	public void update(Usuario obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement("UPDATE usuario SET nome=?, idade=?, email=?, senha=? WHERE id_usuario=?");
+			
+			ps.setString(1, obj.getName());
+			ps.setInt(2, obj.getIdade());
+			ps.setString(3, obj.getEmail());
+			ps.setString(4, obj.getSenha());
+			ps.setInt(5, obj.getId());
+			
+			//executando a query
+			 ps.executeUpdate();
+			
+		}catch (SQLException e) {
+			throw new DBException(e.getMessage());
+		}
+		
 		
 	}
 
@@ -90,6 +106,7 @@ public class UsuarioDaoJDBC implements UsuarioDao {
 			
 		}
 		catch (SQLException e) {
+			
 			throw new DBException(e.getMessage());
 		}
 		finally {

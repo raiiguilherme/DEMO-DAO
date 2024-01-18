@@ -32,11 +32,25 @@ public class Program {
 			System.out.println(usuario2);
 		}
 		
-		
+	
 		//inserindo novo usuario usando o construtor que nao possui ID como argumento
+		System.out.println();
 		Usuario us = new Usuario("Xica", 39, "xica1234@gmail.com", "12345333");
 		System.out.println("inserindo o usuario: "+us);
 		usuariodao.insert(us);
+		
+		//alterando dados ja existentes
+		System.out.println();
+		System.out.println("informações antigas do usuario:");
+		 us = usuariodao.findById(26);  //adicionando o usuario retornado da busca pelo id na variavel
+		 System.out.println(us);
+		us.setEmail("teste123@gmail.com"); //realizando alguma alteração
+		System.out.println("\n");
+		usuariodao.update(us);				//subindo o update
+		System.out.println("novas informações:");
+		 System.out.println(us);
+		
+		
 		
 		
 		
